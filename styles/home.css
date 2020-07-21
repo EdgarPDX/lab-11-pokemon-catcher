@@ -1,0 +1,38 @@
+/* add home page styles here */
+
+h1{
+    display: flex;
+    justify-content: center;
+    font-size: 4rem;
+}
+#pokemon-choice-container{
+
+    display: flex;
+    justify-content: space-between;
+    
+}
+.next-button{
+    display: flex;
+    justify-content: center;
+}
+
+button{
+    border:solid blue 15px;
+    background-color: yellow;
+    height: 100px;
+    width: 250px;
+    font-size: 2rem;
+    font-weight: 800;
+    color: blue;
+}
+img{
+    height: auto;
+ }
+input {
+    display: none;
+}
+input:checked + img {
+    border:inset gainsboro;
+    background-position-x: center;
+    
+}
