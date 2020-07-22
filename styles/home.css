@@ -28,7 +28,7 @@ button{
 img{
     height: auto;
  }
-input {
+input,.hidden {
     display: none;
 }
 input:checked + img {

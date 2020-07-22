@@ -2,8 +2,9 @@ import Pokemon from './Data/pokemon.js';
 import { getRandomPokemon } from './Pokemon-pages/getRandomPokemon.js';
 import { findById } from './common/utils.js';
 // import functions and grab DOM elements
-const nextButton = document.getElementById('button');
-
+const nextButton = document.getElementById('next-button');
+const resultsButton = document.getElementById('results-button');
+const resultsSpan = document.getElementById('captured-pokemon');
 // initialize state
 let remainingPokemon = Pokemon.slice();
 let capturedPokemon = [];
@@ -19,7 +20,7 @@ function setPage(){
         randomPokemon2 = getRandomPokemon(remainingPokemon);
         randomPokemon3 = getRandomPokemon(remainingPokemon);
     
-}
+    }
 
 // console.log(randomPokemon1, randomPokemon2, randomPokemon3);
 
@@ -53,31 +54,41 @@ function setPage(){
     img3.src = randomPokemon3.url_image;
     input3.value = randomPokemon3.pokemon;
     input3.addEventListener('click', eventHandler);
-
+    
+    resultsSpan.textContent = `You have captured:${capturedPokemon.length} POKEMON`;
+    encounteredPokemon.push(randomPokemon1, randomPokemon2, randomPokemon3);
+    // console.log(encounteredPokemon);
+    
 }
-
-
-
-
-
 function eventHandler(e) { 
-    console.log(e.target.value);
+    if (capturedPokemon.length === 10){
+        nextButton.classList.add('hidden');
+        resultsButton.classList.remove('hidden');
+        e.target.value.checked = false;
+    
+    } 
 }
-
-
 
 nextButton.addEventListener('click', ()=>{
+    
     const clickedPokemon = document.querySelector('input:checked');
     const userChoice = clickedPokemon.value;
     const pokemon = findById(remainingPokemon, userChoice.name);
-
-    console.log(userChoice);
+    
+        // console.log(userChoice);
     capturedPokemon.push(pokemon);
-    console.log(capturedPokemon);
-    clickedPokemon.checked = false;
+    // console.log(capturedPokemon);
     
     setPage();
-   
+    
 });
 
 setPage();
+
+
+
+
+
+
+
+

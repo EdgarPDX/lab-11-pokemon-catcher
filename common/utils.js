@@ -9,3 +9,13 @@ export function findById(items, name){
     }
     return null;
 }
+
+export function getEncountered(){
+    const rawEncountered = localStorage.getItem('ENCOUNTERED');
+    const encountered = JSON.parse(rawEncountered) || [];
+    return encountered;
+}
+export function pushToLocal(array){
+    const stringPokemon = JSON.stringify(array);
+    localStorage.setItem('Captured', stringPokemon);
+}
