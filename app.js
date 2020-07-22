@@ -1,6 +1,6 @@
 import Pokemon from './Data/pokemon.js';
 import { getRandomPokemon } from './Pokemon-pages/getRandomPokemon.js';
-import { findById } from './common/utils.js';
+import { findById, pushToLocal, getStorage } from './common/utils.js';
 // import functions and grab DOM elements
 const nextButton = document.getElementById('next-button');
 const resultsButton = document.getElementById('results-button');
@@ -71,13 +71,35 @@ function eventHandler(e) {
 
 nextButton.addEventListener('click', ()=>{
     
+    eventHandler();
+    //console.log(cars.id);
+    const local = getStorage();
     const clickedPokemon = document.querySelector('input:checked');
     const userChoice = clickedPokemon.value;
-    const pokemon = findById(remainingPokemon, userChoice.name);
+
+    const capturedPokemon = findById(remainingPokemon, userChoice.pokemon);
+       
+        //need to increment quantity if item is already there || 
+    if (capturedPokemon) {
+        capturedPokemon.captured++;
+    } else {
+        const newPokemon = {
+            id: userChoice.pokemon,
+            captured:1,
+            encountered:1
+        };
+        local.push(newPokemon);
+    }
+    console.log(local);
+    pushToLocal(capturedPokemon);
+        
+
+
+        
+   
     
         // console.log(userChoice);
-    capturedPokemon.push(pokemon);
-    // console.log(capturedPokemon);
+        // console.log(capturedPokemon);
     
     setPage();
     
