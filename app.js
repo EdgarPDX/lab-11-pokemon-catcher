@@ -1,17 +1,17 @@
 import Pokemon from './Data/pokemon.js';
 import { getRandomPokemon } from './Pokemon-pages/getRandomPokemon.js';
-import { findById } from './common/utils.js';
+import { findById, pushCaptured, encounteredPoke, getPokemonData } from './common/utils.js';
 // import functions and grab DOM elements
 const nextButton = document.getElementById('next-button');
 const resultsButton = document.getElementById('results-button');
-const resultsSpan = document.getElementById('captured-pokemon');
 // initialize state
 let remainingPokemon = Pokemon.slice();
 let capturedPokemon = [];
-let encounteredPokemon = [];
+
 
 // set event listeners to update state and DOM
 function setPage(){
+    const encounteredPokemon = getPokemonData();
     const randomPokemon1 = getRandomPokemon(remainingPokemon);
     let randomPokemon2 = getRandomPokemon(remainingPokemon);
     let randomPokemon3 = getRandomPokemon(remainingPokemon);
@@ -21,6 +21,9 @@ function setPage(){
         randomPokemon3 = getRandomPokemon(remainingPokemon);
     
     }
+    encounteredPoke(encounteredPokemon, randomPokemon1);
+    encounteredPoke(encounteredPokemon, randomPokemon2);
+    encounteredPoke(encounteredPokemon, randomPokemon3);
 
 // console.log(randomPokemon1, randomPokemon2, randomPokemon3);
 
@@ -54,11 +57,7 @@ function setPage(){
     img3.src = randomPokemon3.url_image;
     input3.value = randomPokemon3.pokemon;
     input3.addEventListener('click', eventHandler);
-    
-    resultsSpan.textContent = `You have captured:${capturedPokemon.length} POKEMON`;
-    encounteredPokemon.push(randomPokemon1, randomPokemon2, randomPokemon3);
-    // console.log(encounteredPokemon);
-    
+            
 }
 function eventHandler(e) { 
     if (capturedPokemon.length === 10){
@@ -70,14 +69,12 @@ function eventHandler(e) {
 }
 
 nextButton.addEventListener('click', ()=>{
-    
+    const pokeData = getPokemonData();
     const clickedPokemon = document.querySelector('input:checked');
     const userChoice = clickedPokemon.value;
-    const pokemon = findById(remainingPokemon, userChoice.name);
-    
-        // console.log(userChoice);
-    capturedPokemon.push(pokemon);
-    // console.log(capturedPokemon);
+    const pokemon = findById(pokeData, userChoice);
+    pokemon.captured++;
+    pushCaptured(pokeData);
     
     setPage();
     
