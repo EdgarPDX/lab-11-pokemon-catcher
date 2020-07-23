@@ -6,8 +6,8 @@ const nextButton = document.getElementById('next-button');
 const resultsButton = document.getElementById('results-button');
 // initialize state
 let remainingPokemon = Pokemon.slice();
-let capturedPokemon = [];
 
+let rounds = 0;
 
 // set event listeners to update state and DOM
 function setPage(){
@@ -60,15 +60,20 @@ function setPage(){
             
 }
 function eventHandler(e) { 
-    if (capturedPokemon.length === 10){
-        nextButton.classList.add('hidden');
-        resultsButton.classList.remove('hidden');
-        e.target.value.checked = false;
+    if (rounds === 10){
+        e.target.checked = false;
+    }
     
-    } 
-}
+} 
+
 
 nextButton.addEventListener('click', ()=>{
+    rounds++;
+    if (rounds === 10){
+        nextButton.classList.add('hidden');
+        resultsButton.classList.remove('hidden');
+    } 
+    
     const pokeData = getPokemonData();
     const clickedPokemon = document.querySelector('input:checked');
     const userChoice = clickedPokemon.value;
