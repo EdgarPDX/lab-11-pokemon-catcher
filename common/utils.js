@@ -43,3 +43,22 @@ export function pushEncountered(array){
     const stringPokemon = JSON.stringify(array);
     localStorage.setItem('POKEDATA', stringPokemon);
 }
+
+export function mungeNames(pokemonArray){
+    const names = [];
+
+    for (let i = 0; i < pokemonArray.length; i++){
+        const pokemon = pokemonArray[i];
+        names.push(pokemon.pokemon);
+    }
+    return names;
+}
+
+export function mungeCaptured(pokemonArray){
+    const captures = [];
+    for (let i = 0; i < pokemonArray.length; i++){
+        const pokemon = pokemonArray[i];
+        captures.push(pokemon.captured);
+    }
+    return captures;
+}
